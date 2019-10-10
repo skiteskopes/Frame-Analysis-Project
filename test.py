@@ -5,7 +5,7 @@ import os
 import argparse
 global IR_dict, height, width, directory
 from skimage.measure import compare_ssim as ssim
-directory = r'E:/20190919_022250'
+directory = r'E:/test'
 os.chdir(directory)
 IR_dict = {}
 def image_opener():
@@ -29,20 +29,16 @@ def mean_squared_error(a,b):
         err /= float(a.shape[0] * a.shape[1])
     return err
 def compare_images():
-    dummy_dict = IR_dict
-    final_dict = IR_dict
-    for image in IR_dict:
-        dummy_dict.pop(image)
-        a = IR_dict[image]
-        for i in dummy_dict:
-            b = dummy_dict[i]
-            m = mean_squared_error(a,b)
-            s = ssim(a,b)
-            if m: # some sort of condition
-                final_dict.pop(i)
-                os.remove(r'E:/20190919_022250/{0}.TIFF'.format(i))
-            if s: # some sort of condition
-                final_dict.pop(i)
-                os.remove(r'E:/20190919_022250/{0}.TIFF'.format(i))
-    return final_dict
+    length = len(IR_dict)
+    print(length)
+    for x in range(length):
+        a = list(IR_dict)[x]
+        a_matrix = IR_dict[a]
+        for y in range(x+1,length):
+                b = list(IR_dict)[y]
+                b_matrix = IR_dict[b]
+                m = mean_squared_error(a_matrix,b_matrix)
+                s = ssim(a_matrix,b_matrix)
+                print(m,s)
+
 compare_images()
