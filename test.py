@@ -35,14 +35,14 @@ def compare_images():
     final_dict = IR_dict
     for image in IR_dict:
         dummy_dict.pop(image)
-        a = image
+        a = IR_dict[image]
         for i in dummy_dict:
-            b = i
+            b = dummy_dict[i]
             m = mean_squared_error(a,b)
             s = ssim(a,b)
             if m: # some sort of condition
                 final_dict.pop(i)
             if s: # some sort of condition
                 final_dict.pop(i)
-    return final_dict   
+    return final_dict
 compare_images()
