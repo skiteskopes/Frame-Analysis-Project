@@ -14,7 +14,6 @@ def image_opener():
         if image.endswith(".TIFF"):
             array = tifffile.imread(image)
             IR_dict[image]=array
-    print(IR_dict)
 image_opener()
 def mean_squared_error(a,b):
     # the 'Mean Squared Error' between the two images is the
@@ -30,8 +29,20 @@ def mean_squared_error(a,b):
         err /= float(a.shape[0] * a.shape[1])
     return err
 image_opener()
-def compare_images():
-    for image in IR_dict: 
-        print(image)
 
+def compare_images():
+    dummy_dict = IR_dict
+    final_dict = IR_dict
+    for image in IR_dict:
+        dummy_dict.pop(image)
+        a = image
+        for i in dummy_dict:
+            b = i
+            m = mean_squared_error(a,b)
+            s = ssim(a,b)
+            if m: # some sort of condition
+                final_dict.pop(i)
+            if s: # some sort of condition
+                final_dict.pop(i)
+    return final_dict   
 compare_images()
