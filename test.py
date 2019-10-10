@@ -28,8 +28,6 @@ def mean_squared_error(a,b):
         err = np.sum((a.astype("float") - b.astype("float")) ** 2)
         err /= float(a.shape[0] * a.shape[1])
     return err
-image_opener()
-
 def compare_images():
     dummy_dict = IR_dict
     final_dict = IR_dict
@@ -42,7 +40,9 @@ def compare_images():
             s = ssim(a,b)
             if m: # some sort of condition
                 final_dict.pop(i)
+                os.remove(r'E:/20190919_022250/{0}.TIFF'.format(i))
             if s: # some sort of condition
                 final_dict.pop(i)
+                os.remove(r'E:/20190919_022250/{0}.TIFF'.format(i))
     return final_dict
 compare_images()
